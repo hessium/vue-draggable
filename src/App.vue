@@ -63,7 +63,7 @@
                   </button>
                   <button class="popup__btn popup__btn--delete" @click="changeItemCount(selectedItem?.id)">
                       Подтвердить
-                  </button>s
+                  </button>
                 </div>
               </div>
             </div>

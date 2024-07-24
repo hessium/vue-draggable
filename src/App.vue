@@ -20,7 +20,7 @@
             v-model="myArray"
             class="rows"
             group=""
-            @start="drag=true"
+
             @end="changeItems(myArray)"
             item-key="id">
           <template  #item="{element}">
@@ -28,7 +28,7 @@
               <div class="item__content" v-show="element.name" @click="onPopupShow(element)">
                 <div class="item__img"></div>
                 <span class="item__count">
-                {{element.count}}
+                {{element?.count}}
               </span>
               </div>
             </div>
@@ -61,9 +61,9 @@
                   <button class="popup__btn" @click="onHideButtons">
                     Отмена
                   </button>
-                  <button class="popup__btn popup__btn--delete" @click="changeItems(selectedItem.id)">
+                  <button class="popup__btn popup__btn--delete" @click="changeItemCount(selectedItem?.id)">
                       Подтвердить
-                  </button>
+                  </button>s
                 </div>
               </div>
             </div>
@@ -78,7 +78,6 @@
         </svg>
       </button>
       <div class="skeleton-block">
-
       </div>
     </div>
   </div>
@@ -90,20 +89,19 @@ import {onMounted, ref, watch} from "vue";
 import draggable from 'vuedraggable';
 import skeleton from '@/assets/skeleton.png';
 
-
-interface item {
-  name: string,
-  desc: string,
-  id: number
-};
-const model = defineModel()
-
+interface ItemInterface {
+  name?: any,
+  desc?: any,
+  count?: any,
+  id?: any
+}
 
 const itemsStore = useItemsStore();
-const myArray = ref<typeof Array[]>([]);
-const selectedItem = ref< typeof item | null > (null);
-const popupShow = ref(false);
-const showButtons = ref(false);
+const myArray = ref<Array<any>>([]);
+const selectedItem = ref<ItemInterface | null> (null);
+const popupShow = ref<boolean>(false);
+const showButtons = ref<boolean>(false);
+const model = defineModel<any>();
 
 itemsStore.getItems();
 myArray.value = itemsStore.items;
@@ -118,12 +116,16 @@ watch(
     () => myArray.value = itemsStore.items
 )
 
-const changeItems = (id: number) => {
+const changeItemCount = (id: any) => {
   itemsStore.changeItemCount(id, model.value);
-  onPopupHide()
+  onPopupHide();
 }
 
-const onShowButtons = (count: number) => {
+const changeItems = (newItems : Array<any>) => {
+  itemsStore.changeItems(newItems)
+}
+
+const onShowButtons = () => {
   showButtons.value = true;
 }
 
@@ -131,7 +133,8 @@ const onHideButtons = () => {
   showButtons.value = false;
 }
 
-const onPopupShow = (item: typeof item | null ) => {
+const onPopupShow = (item: ItemInterface) => {
+  if(!item) {return}
   popupShow.value = true;
   selectedItem.value = {...item};
   model.value = item?.count
@@ -142,6 +145,7 @@ const onPopupHide = () :void => {
   selectedItem.value = null;
   model.value = 0;
 }
+
 </script>
 
 <style lang="scss">
@@ -171,6 +175,8 @@ button {
   flex-direction: column;
   gap: 24px;
   padding: 32px;
+  max-width: 849px;
+  margin: 0 auto;
 }
 
 .content {
@@ -370,6 +376,7 @@ button {
 
   &__hide{
     position: relative;
+    padding: 2px 4px;
 
     &:after {
       content: '';

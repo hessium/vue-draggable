@@ -144,7 +144,7 @@ const onPopupHide = () :void => {
 }
 </script>
 
-<style>
+<style lang="scss">
 
 * {
   box-sizing: border-box;
@@ -199,43 +199,40 @@ button {
 
 /*item*/
 .item {
-  height: 100px;
+  height: auto;
+  aspect-ratio: 1;
   color: white;
   border: 1px solid rgba(77, 77, 77, 1);
-}
 
-.item__content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
+  &.sortable-chosen {
+    border-radius: 24px;
+    border: 1px solid rgba(77, 77, 77, 1);
+  }
 
-.item__img {
-  width: 50%;
-  height: 50%;
-  background-color: #556d55;
-}
-
-.item__count {
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  color: rgba(255, 255, 255, 1);
-  font-size: 10px;
-  line-height: 1.2;
-  border: 1px solid rgba(77, 77, 77, 1);
-  border-radius: 6px 0 0 0;
-  padding: 2px 4px;
-}
-.item.sortable-chosen {
-  border-radius: 24px;
-  border: 1px solid rgba(77, 77, 77, 1);
-}
-.no-item {
-  user-select: none;
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  &__img {
+    width: 50%;
+    height: 50%;
+    background-color: #556d55;
+  }
+  &__count {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 10px;
+    line-height: 1.2;
+    border: 1px solid rgba(77, 77, 77, 1);
+    border-radius: 6px 0 0 0;
+    padding: 2px 4px;
+  }
 }
 
 /*popup*/
@@ -248,88 +245,94 @@ button {
   z-index: 10;
   background-color: rgba(38, 38, 38,1);
   color: white;
+
+  &__content {
+    padding: 55px 15px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    border: 1px solid rgba(77, 77, 77, 1);
+  }
+
+  &__close {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+    z-index: 1;
+  }
+  &__img {
+    width: 100%;
+    max-width: 130px;
+    height: auto;
+    aspect-ratio: 1;
+    background-color: red;
+
+    &--wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(77, 77, 77, 1);
+      margin-bottom: 16px;
+    }
+  }
+  &__text {
+    flex: 1;
+  }
+
+  &__actions {
+    padding: 20px;
+    border: 1px solid rgba(77, 77, 77, 1);
+    margin-top: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: calc(100% + 2px);
+    z-index: 1;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  &__btn {
+    width: 100%;
+    padding: 11px;
+    border-radius: 8px;
+    background-color: white;
+    color: black;
+
+    &--delete {
+      background-color: rgba(250, 114, 114, 1);
+      color: white;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 11px 12px;
+    background-color: transparent;
+    outline: none;
+    border-radius: 4px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, .4);
+    border: 1px solid rgba(77, 77, 77, 1);
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+  }
 }
 
-.popup__content {
-  padding: 55px 15px 18px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  height: 100%;
-  border: 1px solid rgba(77, 77, 77, 1);
-}
-.popup__close {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 24px;
-  height: 24px;
-  z-index: 1;
-}
-.popup__img {
-  width: 100%;
-  max-width: 130px;
-  height: auto;
-  aspect-ratio: 1;
-  background-color: red;
-}
-
-.popup__text {
-  flex: 1;
-}
-input[type='number'] {
-  -moz-appearance: textfield;
-}
-.popup__input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-.popup__input {
-  width: 100%;
-  padding: 11px 12px;
-  background-color: transparent;
-  outline: none;
-  border-radius: 4px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, .4);
-  border: 1px solid rgba(77, 77, 77, 1);
-}
-.popup__img--wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding-bottom: 30px;
-  border-bottom: 1px solid rgba(77, 77, 77, 1);
-  margin-bottom: 16px;
-}
-.popup__actions {
-  padding: 20px;
-  border: 1px solid rgba(77, 77, 77, 1);
-  margin-top: auto;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: calc(100% + 2px);
-  z-index: 1;
-}
-.popup__buttons {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-.popup__btn {
-  width: 100%;
-  padding: 11px;
-  border-radius: 8px;
-  background-color: white;
-  color: black;
-}
-.popup__btn--delete {
-  background-color: rgba(250, 114, 114, 1);
-  color: white;
-}
   /*skeleton*/
 .skeleton-item {
   border: 1px solid rgba(77, 77, 77, 1);
@@ -340,44 +343,48 @@ input[type='number'] {
   display: flex;
   align-items: center;
   flex-direction: column;
-}
 
-.skeleton-item__img {
-  width: 100%;
-  aspect-ratio: 208/240;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-.skeleton-item__img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.skeleton-item__hide{
-  position: relative;
-}
-.skeleton-item__hide:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, #3C3C3C 0%, #444444 51.04%, #333333 100%);
-  border-radius: 8px;
-  z-index: 1;
-}
+  &__img {
+    width: 100%;
+    aspect-ratio: 208/240;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
 
-.skeleton-item__name {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-.skeleton-item__desc {
-  margin-bottom: 16px;
-  font-size: 10px;
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__name {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  &__desc {
+    margin-bottom: 16px;
+    font-size: 10px;
+  }
+
+  &__hide{
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #3C3C3C 0%, #444444 51.04%, #333333 100%);
+      border-radius: 8px;
+      z-index: 1;
+    }
+  }
 }
 
 .skeleton-wrap {
@@ -387,13 +394,14 @@ input[type='number'] {
   border: 1px solid rgba(77, 77, 77, 1);
   background-color: rgba(38, 38, 38, 1);
   position: relative;
-}
-.skeleton-wrap__close {
-  position: absolute;
-  top:  14px;
-  right: 14px;
-  width: 24px;
-  height: 24px;
+
+  &__close {
+    position: absolute;
+    top:  14px;
+    right: 14px;
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .skeleton-block {
@@ -402,6 +410,8 @@ input[type='number'] {
   border-radius: 12px;
   background: linear-gradient(90deg, #3C3C3C 0%, #444444 51.04%, #333333 100%);
 }
+
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.4s ease, transform 0.4s ease;

@@ -1,8 +1,8 @@
 # vue-draggable
 
 This template should help get you started developing with Vue 3 in Vite.
-store - Pinia
-dragndrop реализовал с помощью  https://github.com/SortableJS/vue.draggable.next
+Store - Pinia.
+Dragndrop реализовал с помощью  https://github.com/SortableJS/vue.draggable.next
 
 ## Recommended IDE Setup
 

@@ -1,21 +1,43 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
+const db = [
+  {
+    "name" : "item 1",
+    "desc" : "But I must explain to you how all this mistaken idea of denouncing pleasure",
+    "id" : 1,
+    "count" : 3
+  },
+  {
+    "name" : "item 2",
+    "desc" : "But I must explain to you how all this mistaken idea of denouncing pleasure",
+    "id" : 2,
+    "count" : 4
+  },
+  {
+    "name" : "item 3",
+    "desc" : "But I must explain to you how all this mistaken idea of denouncing pleasure",
+    "id" : 3,
+    "count" : 1
+  },
+  {}, {}, {}, {}, {}, {}, {}, {}, {},
+  {}, {}, {}, {}, {}, {}, {}, {}, {},
+  {}, {}, {}, {}
+]
+
 export const useItemsStore = defineStore('items', () => {
 
   const items = ref<Array<any>[]>([])
   const isLoading = ref<boolean>(false)
   const error = ref< any | null>(null)
 
-  async function getItems() {
+  function getItems() {
     isLoading.value = true;
     try {
       if( localStorage.getItem('items') !== null) {
         return  items.value = JSON.parse(<string>localStorage.getItem('items'));
       }
-      const res = await fetch('src/db.json');
-      const data = await res.json();
-      localStorage.setItem('items', JSON.stringify(data));
+      localStorage.setItem('items', JSON.stringify(db));
       items.value = JSON.parse(<string>localStorage.getItem('items'));
     } catch (error: any) {
       return error.value = error;
@@ -23,7 +45,6 @@ export const useItemsStore = defineStore('items', () => {
       isLoading.value = false;
     }
   }
-
   function changeItems(newItems: Array<any>)  {
     localStorage.setItem('items', JSON.stringify(newItems));
     items.value = JSON.parse(<string>localStorage.getItem('items'));
